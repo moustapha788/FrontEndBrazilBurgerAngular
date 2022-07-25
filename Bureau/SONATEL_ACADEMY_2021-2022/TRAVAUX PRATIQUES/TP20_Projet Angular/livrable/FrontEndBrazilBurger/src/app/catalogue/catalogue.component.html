@@ -1,0 +1,19 @@
+<h1 class="fs-1 text-bg-dark text-center my-3">
+    <a href="#!" class="">
+        Burgers    
+    </a>
+</h1>
+<div class="row p-3 g-5">
+    <app-burger *ngFor="let burger of burgers" class="col-md-3 col-lg-4 " [burger]="burger"></app-burger>
+</div>
+
+
+<h1 class="fs-1 text-bg-dark text-center my-3">
+    <a href="#!" class="">
+        Menu
+    </a>
+</h1>
+
+<div class="row p-3 g-5">
+    <app-menu *ngFor="let menu of menus" class="col-md-3 col-lg-4 " [menu]="menu"></app-menu>
+</div>
