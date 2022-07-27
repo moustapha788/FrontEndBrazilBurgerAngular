@@ -1,7 +1,10 @@
 import { ViewEncapsulation } from '@angular/core';
 import { Component, Input, OnInit } from '@angular/core';
+import { map, take } from 'rxjs';
 import { Burger } from 'src/models/Burger';
+import { ICatalogue } from 'src/models/ICatalogue';
 import { Menu } from 'src/models/Menu';
+import { DataService } from '../services/data/data.service';
 
 @Component({
   selector: 'app-catalogue',
@@ -10,89 +13,28 @@ import { Menu } from 'src/models/Menu';
 })
 export class CatalogueComponent implements OnInit {
 
-  @Input()
   burgers!: Burger[];
-
-  @Input()
   menus!: Menu[];
-  constructor() { }
+
+  constructor(private dataService: DataService) { }
 
   ngOnInit(): void {
-    this.burgers =
-      [
-        {
-          id: 1,
-          nom: "Burger royal",
-          prix: 1500,
-          image: "../../assets/images/burgers/burger-1.jpg",
-        },
 
-        {
-          id: 2,
-          nom: "Burger double",
-          prix: 2000,
-          image: "../../assets/images/burgers/burger-2.jpg",
-        },
-        {
-          id: 1,
-          nom: "Burger triple",
-          prix: 4500,
-          image: "../../assets/images/burgers/burger-3.jpeg",
-        }
-        ,
-        {
-          id: 1,
-          nom: "Burger Senegal",
-          prix: 4500,
-          image: "../../assets/images/burgers/burger-4.jpg",
-        },
-        {
-          id: 1,
-          nom: "Burger adama",
-          prix: 4500,
-          image: "../../assets/images/burgers/burger-5.jpg",
-        },
-        {
-          id: 1,
-          nom: "Burger Der",
-          prix: 4500,
-          image: "../../assets/images/burgers/burger-6.jpg",
-        }
-      ];
-    /* 
-    id: number,
-        nom: string,
-        burgers: Burger[],
-        boissons: Boisson[]
-        image: string
-        prix: number,
-    */
-    this.menus =
-      [
-        {
-          id: 1,
-          nom: "Menu royal",
-          burgers: [],
-          boissons: [],
-          image: "../../assets/images/menus/menu-burger-1.jpeg",
-          prix: 1500
-        },
-        {
-          id: 1,
-          nom: "Menu double",
-          burgers: [],
-          boissons: [],
-          image: "../../assets/images/menus/menu-burger-2.jpg",
-          prix: 1500
-        },
-        {
-          id: 1,
-          nom: "Menu triple",
-          burgers: [],
-          boissons: [],
-          image: "../../assets/images/menus/menu-burger-2.jpg",
-          prix: 4500
-        }
-      ]
-}
+    this.dataService.getProduits().pipe(
+      // take(1),
+      // map((iCata: ICatalogue) => {
+      //  iCata.burgers.forEach(item =>{
+      //   //  item.image[0]=this.dataService.transform(item.image[0])
+      //  })
+      // })
+
+    ).
+    subscribe(
+      (i:any)=>{
+         
+        this.menus = i.menus;
+        this.burgers = i.burgers;
+      }
+    );
+  }
 }

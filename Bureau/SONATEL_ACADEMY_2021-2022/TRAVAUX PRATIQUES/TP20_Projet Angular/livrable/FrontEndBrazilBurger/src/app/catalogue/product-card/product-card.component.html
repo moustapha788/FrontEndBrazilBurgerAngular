@@ -1,0 +1,20 @@
+<div class="card rounded-4 shadow  animate__heartBeat ">
+    <h3 class="card-header text-black d-flex align-items-center justify-content-between px-4 fs-2">
+        <span class=" fw-bold fs-5 ">{{produit.prix}} FCFA</span>
+        <div class="" (click)="addToBasket(produit)">
+            <i class="bi bi-cart4 fs-2 w-100 h-100 text-dark" *ngIf="disabled"></i>
+            <i class="bi bi-x-lg w-100 h-100 text-dark" *ngIf="!disabled"></i>
+        </div>
+    </h3>
+    <div class="card-body p-2 border h-75 " (click)="show()">
+
+        <img src="assets/images/burgers/burger-1.jpg" class="img-responsive img-burger" alt="burger" class="card-img ">
+        <!-- <img class="img-responsive img-burger" alt="burger" class="card-img "> -->
+    </div>
+
+    <div class="card-footer text-black lead p-2">
+        <marquee behavior="" direction="">
+            <span class=" fs-6 fw-lighter lead ">{{produit.nom}}</span>
+        </marquee>
+    </div>
+</div>

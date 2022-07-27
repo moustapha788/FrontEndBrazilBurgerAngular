@@ -9,16 +9,23 @@ import { Burger } from 'src/models/Burger';
 })
 export class BurgerComponent implements OnInit {
   @Input()
-  burger!:Burger;
+  burger!: Burger;
 
-  constructor(private router:Router) { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
     // this.burger
   }
 
-  show(){
-    this.router.navigateByUrl(`burger/${this.burger.id}`)
+  show() {
+    this.router.navigateByUrl(`burger/${this.burger.id}`);
   }
+  heartBeat() {
+    // animate__heartBeat
+  }
+  addToBasket(e: Event) {
+    // alert("votre produit est ajouté");
+    console.log(e.target);
 
+  }
 }
