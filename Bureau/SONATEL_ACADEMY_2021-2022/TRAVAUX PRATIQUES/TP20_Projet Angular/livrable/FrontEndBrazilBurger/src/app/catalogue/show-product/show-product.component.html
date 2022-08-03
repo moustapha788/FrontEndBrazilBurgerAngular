@@ -5,46 +5,74 @@ modal fade
 <div class="">
 
     <div class="container d-flex flex-column align-items-center bg-white p-3 my-3">
+        <div class=" bg-info bg-opacity-10 border border-3 border-warning container d-flex justify-content-between align-items-center p-3">
+            <span *ngIf="true" class="fs-4   bg-warning  text-center text-white fw-bold px-5 rounded-0">{{showTitle(produit)}}</span>
+            <span class="text-center bg-warning bg-black text-warning cursor fw-bold p-2 rounded-5" *ngIf="isAlreadyinBasket(produit)" (click)="seeToBasket()">
+                regarder dans le panier
+            </span>
+            <span class="text-center bg-warning bg-black text-warning cursor fw-bold p-2 rounded-5" *ngIf="!isAlreadyinBasket(produit)" (click)="addToBasket(produit)">
+                ajouter au panier
+            </span>
+        </div>
 
-        <span *ngIf="true" class="fs-4   bg-warning  text-center text-white fw-bold px-5 rounded-5">Détail Burger</span>
         <div class="p-3 d-flex flex-row " style="min-height: 700px;">
+
             <div class="  w-50 d-flex flex-column align-items-center">
                 <p class=" mb-5 w-75 p-3 border">
-                    <img src="assets/images/burgers/burger-1.jpg" class="img-responsive card-img border border-5 border-warning" alt="" srcset="">
+                    <img [src]="afficheImage(produit.images[0].fichier)" class="img-responsive card-img border border-5 border-warning" alt="" srcset="">
                 </p>
 
-                <span class="fs-1 fw-bold  bg-warning text-white px-5 rounded-5 mb-3">TOTAL</span>
-                <span class="fs-1 fw-bold text-black">{{produit.prix}} FCFA</span>
-
-
+                <p>
+                    <span class="fs-1 fw-bold d-block  bg-warning text-white px-5 rounded-5 mb-3">TOTAL</span>
+                    <span class="fs-1 fw-bold d-block text-black">{{produit.prix}} FCFA</span>
+                </p>
             </div>
-            <div class="ms-3 w-50 h-100 border-start border-5 border-warning d-flex flex-column align-items-center p-3 overflow-auto ">
-                <span class="fs-2 fw-bold  bg-warning text-white px-5 rounded-5 mb-3">Burger</span>
+
+            <div class="ms-3 w-50 h-100 border-start border-5 border-warning d-flex flex-column align-items-center p-3 right-side " style="max-height: 600px">
+                <h1 class="fs-2 fw-bold  bg-warning text-white px-5 rounded-5 mb-3">{{('Burger'|uppercase) +( isMenu(produit) ?'S':'')}}</h1>
+                <div *ngIf="isMenu(produit)">
+                    <!--le ou les burgers d'un menu -->
+                    <app-sub-product *ngFor="let sousProduit of burgersDuMenu;" [subProduct]="sousProduit">
+                    </app-sub-product>
+                </div>
+                <div *ngIf="!isMenu(produit) ">
+                    <!-- le burger en question d'un produit de type burger -->
+                    <app-burger [burger]="produit"></app-burger>
+                </div>
 
 
-                <div class="card mb-3" style="max-width: 540px;">
-                    <div class="row g-0 d-flex align-items-center p-2">
-                        <div class="col-md-4">
-                            <img src="assets/images/burgers/burger-1.jpg" class="img-fluid rounded-start" alt="...">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body bg">
-                                <h5 class="card-title text-dark fs-3">Burger Royal</h5>
-                                <p class="card-text fs-4"><small class="text-muted">6000 FCFA</small></p>
-                            </div>
-                        </div>
+                <h1 class="fs-2 fw-bold  bg-warning text-white px-5 rounded-5 mb-3">{{'Complements'|uppercase}}</h1>
+                <div class="">
+                    <h3 *ngIf="isMenu(produit)" class="fs-4 fw-bold bg-warning text-white text-center px-3 rounded-5 mb-3">
+                        {{'frites'|uppercase}}
+                    </h3>
+                    <div *ngIf="isMenu(produit)">
+                        <app-frite *ngFor="let sousProduit of fritesDuMenu;" [subProductFrite]="sousProduit">
+                        </app-frite>
                     </div>
                 </div>
 
-                <span class="fs-2 fw-bold  bg-warning text-white px-5 rounded-5 mb-3">Complements</span>
-                <button class="btn  bg-warning text-white fw-1 ">Ajouter un boisson</button>
+                <div class="">
+                    <h3 *ngIf="isMenu(produit)" class="fs-4 fw-bold bg-warning text-white text-center   px-3 rounded-5 mb-3">
+                        {{'boissons'|uppercase}}
+                    </h3>
+                    <div *ngIf="isMenu(produit)" class="p-3">
+                        <app-boisson *ngFor="let boissons of boissonsDuMenu;let i=index" [boissons]="boissons"></app-boisson>
+                    </div>
+                </div>
 
+                <div class=" d-flex flex-column justify-content-center align-items-center">
+                    <button class="btn  bg-warning text-white fw-1 rounded-4  my-2" *ngIf="!isMenu(produit)">Ajouter un
+                        boisson
+                    </button>
+                    <button class="btn  bg-warning text-white fw-1 rounded-4  my-2" *ngIf="!isMenu(produit)">Ajouter une
+                        portion de frite
+                    </button>
+                </div>
 
             </div>
 
         </div>
 
-
     </div>
-
 </div>

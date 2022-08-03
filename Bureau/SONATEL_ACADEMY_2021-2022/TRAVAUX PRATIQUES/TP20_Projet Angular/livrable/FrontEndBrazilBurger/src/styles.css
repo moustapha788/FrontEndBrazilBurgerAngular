@@ -8,3 +8,15 @@ html {
 
 @import "~bootstrap/dist/css/bootstrap.min.css";
 @import"~bootswatch/dist/vapor/bootstrap.min.css";
+
+/* 
+*Inspiration font
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Inspiration&display=swap');
+
+/* 
+*Square+Peg font
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Square+Peg&display=swap');

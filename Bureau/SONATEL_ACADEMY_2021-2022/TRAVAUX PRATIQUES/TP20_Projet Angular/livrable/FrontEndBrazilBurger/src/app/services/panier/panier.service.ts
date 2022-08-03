@@ -8,25 +8,144 @@ import { Menu } from 'src/models/Menu';
 })
 export class PanierService {
 
+  prixCommandes: number = 0;
+  prixUniQte: number = 0;
   constructor() {
-    let existingCartItems = JSON.parse(localStorage.getItem('products' ) || '[]');
+    let existingCartItems = JSON.parse(localStorage.getItem('products') || '[]');
     if (!existingCartItems) {
       existingCartItems = [];
     }
     this.itemsSubject.next(existingCartItems);
+    // this.items$.subscribe(console.log)
+
   }
 
-  private itemsSubject = new BehaviorSubject<Burger[]|Menu[]>([]);
+  private itemsSubject = new BehaviorSubject<Burger[] | Menu[]>([]);
   items$ = this.itemsSubject.asObservable();
 
 
-  addToPanier(product: Menu & Burger) {
+  /*
+  nota bene:
+  fonction pour 
+   */
+  // puttingToPanier(product: Menu & Burger, action: "on" | "off" = "on") {
+  //   this.items$.pipe(
+  //     take(1),
+  //         product.quantite=1;
+
+  //     map((products) => {
+  //       if (action === "on") {
+  //         products.push(product);
+  //       } else {
+  //         products.splice(products.indexOf(product), 1)
+  //       }
+  //       // next:products.next(products);
+  //       localStorage.setItem('products', JSON.stringify(products));
+  //     }),
+  //   ).subscribe();
+  //console.log(this.isVide)
+  // }
+
+
+  puttingToPanier(product: Menu & Burger, action: "on" | "off" = "on") {
     this.items$.pipe(
       take(1),
       map((products) => {
-        products.push(product);
+        let tab: Menu[] | Burger[] = JSON.parse(localStorage.getItem('products') || '[]');
+        //console.log(tab);
+        product.quantite = 1;
+        product.choosen = true;
+
+
+        if (action === "on") {
+          if (tab) {
+            let prodTrouve: Burger | Menu | undefined = tab.find((param: { id: number }) => param.id == product.id)
+
+            // console.log(prodTrouve?.id);
+            if (!prodTrouve) {
+              products.push(product);
+
+            } else {
+              products.forEach(elt => {
+                if (elt.id == product.id) {
+                  elt.quantite++;
+                  product.choosen = false;
+
+                }
+              });
+            }
+          }
+        }
+        else {
+          products.splice(products.indexOf(product), 1);
+          product.choosen = false;
+        }
         localStorage.setItem('products', JSON.stringify(products));
       }),
     ).subscribe();
+  }
+
+
+
+  changerComportement(product: Menu | Burger) {
+    this.items$.pipe(
+      take(1),
+      map((products) => {
+        products.forEach(elt => {
+          if (elt.id == product.id) {
+            // elt.disabled = !elt.disabled;
+            elt.choosen = false;
+          }
+        });
+        localStorage.setItem('products', JSON.stringify(products));
+      }),
+    ).subscribe();
+
+  }
+
+  changeQuantite(product: Menu | Burger, qte: any/* number */) {
+    this.items$.pipe(
+      take(1),
+      map((products) => {
+        products.forEach(elt => {
+          if (elt.id == product.id) {
+            elt.quantite = qte;
+          }
+        });
+        localStorage.setItem('products', JSON.stringify(products));
+      }),
+    ).subscribe();
+
+  }
+  calculerPrixTotal() {
+    let prixTotal = 0;
+    this.items$.subscribe(
+
+      (products) => {
+        products.forEach((elt) => {
+          prixTotal += elt.prix * elt.quantite;
+        });
+        localStorage.setItem('products', JSON.stringify(products));
+      }
+
+    );
+    return prixTotal;
+
+  }
+
+  isAlreadyInBasket(product: Menu | Burger): boolean {
+    let tab: Menu[] | Burger[] = JSON.parse(localStorage.getItem('products') || '[]');
+    // console.log(tab);
+    if (tab) {
+      let prodTrouve: Burger | Menu | undefined = tab.find((param: { id: number }) => param.id == product.id)
+      // console.log(prodTrouve?.id); 
+      if (prodTrouve) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return true;
+    }
   }
 }

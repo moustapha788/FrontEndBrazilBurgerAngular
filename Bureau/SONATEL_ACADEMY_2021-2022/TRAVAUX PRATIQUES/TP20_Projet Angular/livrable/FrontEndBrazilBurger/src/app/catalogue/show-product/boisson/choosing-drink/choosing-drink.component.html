@@ -1,0 +1,23 @@
+<div class=" d-flex flex-column justify-content-center align-items-center border border-3  p-5" style="width: 200px ;height: 200px;">
+    <label for="{{'boisson'+''}}">
+        <!-- <img src="assets/images/logo1.png" class="img-fluid  img-responsive w-100 h-100" alt="image-burger"> -->
+        <img [src]="afficheImage(drink.boisson.images[0].fichier)" class="img-fluid rounded-start img-responsive w-100 h-100" alt="image-burger">
+    </label>
+    <div class="d-flex flex-column justify-content-center align-items-center">
+
+        <small class=" d-block  text-center"> {{ drink.boisson.nom}}</small>
+        <small class="  card-text fs-6 text-center"><small class="text-muted">{{drink.prix}} FCFA</small></small>
+        <div class=" d-flex justify-content-center align-items-center">
+            <small class="btn btn-warning btn-sm m-1" (click)="moins(drink.boisson,inputQte);">
+                <i class="fa-solid fa-minus"></i>
+            </small>
+
+            <input #inputQte (input)="manipQte(inputQte)" value="{{drink.boisson.id}}" id="{{drink.boisson.id}}" min="0" class="taille  d-block form-control bg-warning" style="width: 90px;" type="number" name="">
+            <small class="btn btn-warning btn-sm m-1" (click)="plus(drink.boisson,inputQte);">
+                <i class="fa-solid fa-plus"></i>
+            </small>
+        </div>
+        <!-- <small class=" d-block  text-center"><span class="text-black">stock</span>: {{ drink.quantiteStock}}</small> -->
+
+    </div>
+</div>

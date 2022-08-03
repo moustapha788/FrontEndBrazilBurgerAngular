@@ -43,7 +43,7 @@
 -->
 <nav class="navbar principal-color navbar-dark bg-dark position-sticky top-0 w-100 mb-5" style="height: 125px">
     <a class="navbar-brand" href="#">
-        <img src="../../assets/images/logo.png" class="img-responsive img-fluid w-25" alt="" srcset="" />
+        <img src="assets/images/logo1.png" class="img-responsive img-fluid " width="150" alt="" srcset="" />
     </a>
 
 
@@ -64,7 +64,9 @@
             <i class="fas fa-bell"></i>
 
         </a>
-        <span class="count  text-white fw-bold fs-5 position-absolute top-75 start-75 ">1</span>
+        <span class="count  text-white fw-bold fs-5 position-absolute top-75 start-75 ">
+            {{(items$|async).length}}
+        </span>
     </div>
 
     <div class="offcanvas offcanvas-end text-bg-dark" tabindex="" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">

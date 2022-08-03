@@ -1,0 +1,12 @@
+.boissons {
+    overflow-x: auto;
+    /* overflow-y: hidden; */
+}
+
+.my-drinks {
+    color: #000;
+}
+
+input[type=number] {
+    color: #fff;
+}

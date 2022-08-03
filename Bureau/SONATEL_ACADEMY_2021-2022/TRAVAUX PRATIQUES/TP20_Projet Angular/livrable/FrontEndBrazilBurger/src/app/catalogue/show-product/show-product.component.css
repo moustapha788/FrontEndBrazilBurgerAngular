@@ -1,0 +1,8 @@
+.right-side {
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.cursor {
+    cursor: pointer;
+}

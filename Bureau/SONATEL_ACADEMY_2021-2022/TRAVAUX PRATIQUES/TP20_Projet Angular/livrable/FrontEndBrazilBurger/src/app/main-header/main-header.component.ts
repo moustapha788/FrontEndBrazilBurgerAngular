@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { PanierService } from '../services/panier/panier.service';
 
 @Component({
   selector: 'app-main-header',
@@ -7,7 +9,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainHeaderComponent implements OnInit {
 
-  constructor() { }
+  items$: Observable<any> = this.panierService.items$
+
+  constructor( private panierService: PanierService) { }
 
   ngOnInit(): void {
   }

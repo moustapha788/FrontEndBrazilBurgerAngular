@@ -1,6 +1,11 @@
+import { Image } from "./Image";
+
 export interface Produit {
     id: number;
     nom: string;
     prix: number;
-    image: string[];
+    images: Image[];
+    quantite:number;
+    choosen:boolean;
+
 }

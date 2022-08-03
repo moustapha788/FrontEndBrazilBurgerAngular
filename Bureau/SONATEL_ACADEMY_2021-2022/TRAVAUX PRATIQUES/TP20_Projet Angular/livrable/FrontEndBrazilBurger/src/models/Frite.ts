@@ -1,10 +1,12 @@
 import { Image } from "./Image";
 
-export interface Burger {
+export interface Frite {
     id: number,
     nom: string,
     images: Image[],
     prix: number,
     quantite:number;
-    choosen:boolean;    
+    choosen:boolean;
+    
+    
 }

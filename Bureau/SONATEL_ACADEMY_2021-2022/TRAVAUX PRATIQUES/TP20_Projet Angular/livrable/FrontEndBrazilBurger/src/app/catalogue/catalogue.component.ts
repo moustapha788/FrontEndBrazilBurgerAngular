@@ -13,28 +13,33 @@ import { DataService } from '../services/data/data.service';
 })
 export class CatalogueComponent implements OnInit {
 
-  burgers!: Burger[];
-  menus!: Menu[];
+  burgers: Burger[] = [];
+  menus: Menu[] = [];
 
   constructor(private dataService: DataService) { }
 
   ngOnInit(): void {
 
-    this.dataService.getProduits().pipe(
-      // take(1),
-      // map((iCata: ICatalogue) => {
-      //  iCata.burgers.forEach(item =>{
-      //   //  item.image[0]=this.dataService.transform(item.image[0])
-      //  })
-      // })
+    this.dataService.getProduits().
+      pipe(
+        take(1),
+        map((iCata: any) => {
+          // console.log("Ma catalogue: ",iCata);
+          iCata.burgers.forEach((produit: Burger) => {
+            produit.choosen = true;
+            this.burgers.push(produit);
+          });
+          iCata.menus.forEach((produit: Menu) => {
+            produit.choosen = true;
+            this.menus.push(produit);
+          });
 
-    ).
-    subscribe(
-      (i:any)=>{
-         
-        this.menus = i.menus;
-        this.burgers = i.burgers;
-      }
-    );
+
+          // localStorage.setItem('products', JSON.stringify(iCata));
+        })
+
+      ).
+      subscribe()
+
   }
 }

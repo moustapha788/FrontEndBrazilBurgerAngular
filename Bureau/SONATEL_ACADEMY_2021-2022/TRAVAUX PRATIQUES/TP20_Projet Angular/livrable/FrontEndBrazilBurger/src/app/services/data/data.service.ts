@@ -5,6 +5,7 @@ import { from, Observable, of } from 'rxjs';
 import { Burger } from 'src/models/Burger';
 import { ICatalogue } from 'src/models/ICatalogue';
 import { Menu } from 'src/models/Menu';
+import { Zone } from 'src/models/Zone';
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +15,10 @@ export class DataService {
   menus!: Menu[];
   private readonly catalogue_url = "http://localhost:8001/api/catalogues"
   private readonly produit_url = "http://localhost:8001/api/produits/"
+  private readonly commande_url = "http://localhost:8001/api/commandes"
+  private readonly zone_url = "http://localhost:8001/api/zones"
 
-  constructor(private http: HttpClient,private sanitizer:DomSanitizer) {
+  constructor(private http: HttpClient, private sanitizer: DomSanitizer) {
 
   }
   getProduits(): Observable<ICatalogue> {
@@ -24,42 +27,19 @@ export class DataService {
 
   }
 
-  getOneProduit(id: number): Observable<Menu | Burger> {
+  // getOneProduit(id: number)/* : Observable<Menu | Burger>  */{
 
-    return this.http.get<any>(this.produit_url + '' + id);
+  //   return this.http.get<any>(this.produit_url + '' + id);
 
+  // }
+
+  postCommande(commande: JSON) {
+    this.http.post(this.commande_url, JSON.stringify(commande))
   }
 
-
-  getAllBurgers(): Observable<Burger> {
-
-    // this.burgers =
-    return from(this.burgers);
-  }
-  getBurger(id: number): any {
-    return this.burgers.find(params => params.id === id);
-
-  }
-  getAllMenus(): Observable<Menu> {
-
-    return from(this.menus);
-
-
-  }
-  getMenu(id: number) {
-    return this.menus.find(params => params.id === id);
-  }
-  blobToString() {
-    var reader = new FileReader();
-    this.getProduits().forEach((d)=>{
-      // reader.readAsDataURL(d.menus)
-    })
-    
+  getZones(): Observable<Zone[]> {
+    return this.http.get<Zone[]>(this.zone_url);
   }
 
-  transform(prod:Menu|Burger){
-    let url =this.sanitizer.bypassSecurityTrustResourceUrl(prod.image[0]);
-    return url;
-}
 
 }
