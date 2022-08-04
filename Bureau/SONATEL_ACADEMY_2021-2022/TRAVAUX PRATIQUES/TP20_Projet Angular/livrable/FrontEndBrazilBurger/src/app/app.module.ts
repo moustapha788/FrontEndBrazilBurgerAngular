@@ -24,7 +24,8 @@ import { BurgerComponent } from './catalogue/show-product/burger/burger.componen
 import { BoissonComponent } from './catalogue/show-product/boisson/boisson.component';
 import { ChoosingDrinkComponent } from './catalogue/show-product/boisson/choosing-drink/choosing-drink.component';
 
-
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,8 @@ import { ChoosingDrinkComponent } from './catalogue/show-product/boisson/choosin
   imports: [
     BrowserModule,
     NgbModule,
+    Ng2SearchPipeModule,
+    FormsModule,
     // AppRoutingModule,
     HttpClientModule,
     RouterModule.forRoot(ROUTES)

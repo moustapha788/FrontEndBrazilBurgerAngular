@@ -10,9 +10,9 @@ modal fade
             <span class="text-center bg-warning bg-black text-warning cursor fw-bold p-2 rounded-5" *ngIf="isAlreadyinBasket(produit)" (click)="seeToBasket()">
                 regarder dans le panier
             </span>
-            <span class="text-center bg-warning bg-black text-warning cursor fw-bold p-2 rounded-5" *ngIf="!isAlreadyinBasket(produit)" (click)="addToBasket(produit)">
+            <button class="text-center addPanier bg-warning bg-black text-warning cursor fw-bold p-2 rounded-5" *ngIf="!isAlreadyinBasket(produit)" (click)="addToBasket(produit)">
                 ajouter au panier
-            </span>
+            </button>
         </div>
 
         <div class="p-3 d-flex flex-row " style="min-height: 700px;">

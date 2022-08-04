@@ -12,12 +12,12 @@
                 <i class="fa-solid fa-minus"></i>
             </small>
 
-            <input #inputQte (input)="manipQte(inputQte)" value="{{drink.boisson.id}}" id="{{drink.boisson.id}}" min="0" class="taille  d-block form-control bg-warning" style="width: 90px;" type="number" name="">
+            <input #inputQte (input)="manipQte(inputQte)" id="{{drink.boisson.nom+drink.boisson.id}}" min="0" class="  d-block form-control bg-warning" style="width: 90px;" type="number" name="">
+
             <small class="btn btn-warning btn-sm m-1" (click)="plus(drink.boisson,inputQte);">
                 <i class="fa-solid fa-plus"></i>
             </small>
         </div>
         <!-- <small class=" d-block  text-center"><span class="text-black">stock</span>: {{ drink.quantiteStock}}</small> -->
-
     </div>
 </div>

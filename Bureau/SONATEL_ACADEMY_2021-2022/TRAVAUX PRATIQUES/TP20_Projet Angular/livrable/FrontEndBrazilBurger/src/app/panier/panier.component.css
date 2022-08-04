@@ -24,3 +24,8 @@
 select {
     outline: none!important;
 }
+
+.modal,
+.mode {
+    z-index: 1000000!important;
+}

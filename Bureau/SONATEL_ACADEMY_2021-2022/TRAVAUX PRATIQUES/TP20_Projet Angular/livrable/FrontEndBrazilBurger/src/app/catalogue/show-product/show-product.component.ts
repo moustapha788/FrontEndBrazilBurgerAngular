@@ -1,7 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit,ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { map, take } from 'rxjs';
 import { DataService } from 'src/app/services/data/data.service';
+import { MenuService } from 'src/app/services/menu/menu.service';
 import { PanierService } from 'src/app/services/panier/panier.service';
 import { TransformationService } from 'src/app/services/transformation/transformation.service';
 import { Burger } from 'src/models/Burger';
@@ -12,7 +13,9 @@ import { BoissonMenu, BurgerMenu, FriteMenu } from 'src/models/SubProduct';
 @Component({
   selector: 'app-show-product',
   templateUrl: './show-product.component.html',
-  styleUrls: ['./show-product.component.css']
+  styleUrls: ['./show-product.component.css'],
+  encapsulation: ViewEncapsulation.Emulated
+
 })
 export class ShowProductComponent implements OnInit {
   produit!: Menu | Burger;
@@ -23,10 +26,9 @@ export class ShowProductComponent implements OnInit {
   boissonsDuMenu: BoissonMenu[] = []
 
 
-  constructor(private router: ActivatedRoute, private dataService: DataService, private transformationService: TransformationService, private panierService: PanierService, private routerExterne: Router) { }
+  constructor(private router: ActivatedRoute, private dataService: DataService, private transformationService: TransformationService, private panierService: PanierService, private routerExterne: Router,private menuService:MenuService) { }
 
   ngOnInit(): void {
-
 
     this.dataService.getProduits().pipe(
       take(1),
@@ -46,10 +48,12 @@ export class ShowProductComponent implements OnInit {
             this.burgersDuMenu = product.burgers;
             this.fritesDuMenu = product.frites;
             this.boissonsDuMenu = product.tailles
+            this.menuService.recupeBoisson(this.boissonsDuMenu);
+
 
             // console.log("le Menu en question : ", product);
             // console.log("les burgers de ce menu : ",this.burgersDuMenu);
-            console.log("les boissons de ce menu : ", this.boissonsDuMenu);
+            // console.log("les boissons de ce menu : ", this.boissonsDuMenu);
             return;
           }
         });
@@ -58,9 +62,12 @@ export class ShowProductComponent implements OnInit {
       })
 
     ).subscribe()
+    
 
 
   }
+
+  
 
 
   showTitle(product: any): string {

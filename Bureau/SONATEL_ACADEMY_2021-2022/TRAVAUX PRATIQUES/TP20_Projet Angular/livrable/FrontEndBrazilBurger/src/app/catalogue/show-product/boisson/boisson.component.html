@@ -1,8 +1,10 @@
-<div class="card m-0 py-2 " style="max-width: 540px; ">
+<div class=" {{'boisson'+boissons.drinkSize.modele}} card m-0 py-2 " style="max-width: 540px; ">
 
-    <h5 class="card-title text-dark text-center fs-4 p-2">Veillez choisir {{boissons.quantite}} boissons dans le modèle <sup class="text-primary">{{boissons.drinkSize.modele}} </sup></h5>
+    <h5 class="card-title text-dark text-center fs-4 p-2">Veillez choisir {{boissons.quantite}} boissons dans le modèle <sup class="text-primary">{{boissons.drinkSize.modele}} </sup> {{'succes'}} </h5>
 
-    <div class="d-flex boissons my-drinks ">
+    <div class="d-flex boissons ">
+
+
         <app-choosing-drink class=" d-flex flex-column justify-content-center align-items-center m-3" style="width: 250px ; height: 200px;" *ngFor="let boisson of boissons.drinkSize.boissons" [drink]="boisson">
         </app-choosing-drink>
     </div>

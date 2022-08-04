@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, map, take } from 'rxjs';
 import { Burger } from 'src/models/Burger';
 import { Menu } from 'src/models/Menu';
+import { Produit } from 'src/models/Produit';
 
 @Injectable({
   providedIn: 'root'
@@ -87,6 +88,22 @@ export class PanierService {
 
 
 
+  cleanBasket() {
+    // this.items$.pipe(
+    //   take(1),
+    //   map((products: any) => {
+    //     products.forEach((elt: Menu | Burger) => {
+    //       products.splice(products.indexOf(elt), 1);
+    //     });
+
+    //   })).subscribe();
+
+
+    // localStorage.removeItem('products');
+
+
+  }
+
   changerComportement(product: Menu | Burger) {
     this.items$.pipe(
       take(1),
@@ -147,5 +164,11 @@ export class PanierService {
     } else {
       return true;
     }
+  }
+  getPanier():Produit[] {
+    const panier:Produit[] =JSON.parse(localStorage.getItem('products') || '[]');
+    // console.log(panier);
+    return panier
+    
   }
 }

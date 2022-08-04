@@ -6,3 +6,13 @@
 .cursor {
     cursor: pointer;
 }
+
+.addPanier:hover {
+    background-color: #f7f7f7;
+}
+
+.search-hero {
+    max-width: 500px;
+    padding-bottom: 50px;
+    margin: auto;
+}

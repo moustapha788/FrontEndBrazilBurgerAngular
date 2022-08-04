@@ -1,17 +1,21 @@
+import { ViewEncapsulation } from '@angular/core';
 import { Component, Input, OnInit } from '@angular/core';
+import { MenuService } from 'src/app/services/menu/menu.service';
 import { TransformationService } from 'src/app/services/transformation/transformation.service';
 import { Boisson, SousBoisson } from 'src/models/Boisson';
 
 @Component({
   selector: 'app-choosing-drink',
   templateUrl: './choosing-drink.component.html',
-  styleUrls: ['./choosing-drink.component.css']
+  styleUrls: ['./choosing-drink.component.css'],
+  encapsulation: ViewEncapsulation.Emulated 
+
 })
 export class ChoosingDrinkComponent implements OnInit {
 
   @Input()
   drink !: SousBoisson;
-  constructor(private transformationService: TransformationService) { }
+  constructor(private transformationService: TransformationService, private menuservice: MenuService) { }
 
   ngOnInit(): void {
   }
@@ -20,7 +24,8 @@ export class ChoosingDrinkComponent implements OnInit {
     return this.transformationService.transform(img_url);
   }
 
-  manipQte(qteBoissonChoisis: any) {
+  manipQte(inputQte: any) {
+    console.log(inputQte.value);
 
   }
 
@@ -30,6 +35,9 @@ export class ChoosingDrinkComponent implements OnInit {
       return;
     }
     inputQte.value = --inputQte.value;
+    // console.log(inputQte.value);
+    this.menuservice.gestionQte(inputQte.value)
+
 
 
   }
@@ -38,9 +46,14 @@ export class ChoosingDrinkComponent implements OnInit {
       inputQte.value = 10;
       return;
     }
-    inputQte.value = ++inputQte.value;
-    
-  }
+    inputQte.value = ++(inputQte.value);
+    // console.log(inputQte.value);
+    this.menuservice.gestionQte(inputQte.value)
 
-  
+  }
+  // normalQte(qte: number, qteTotal: number) {
+  //   this.menuservice.normalQuantite(qte, qteTotal);
+  // }
+
+
 }

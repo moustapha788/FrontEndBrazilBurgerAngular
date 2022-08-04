@@ -15,6 +15,7 @@ export class CatalogueComponent implements OnInit {
 
   burgers: Burger[] = [];
   menus: Menu[] = [];
+  searchText:any;
 
   constructor(private dataService: DataService) { }
 

@@ -40,47 +40,78 @@
                                 <input type="radio" #livrable class="" name="modeLivraison" id="rep" (input)="estALivrer(livrable)" style="width: 25px ; height: 25px;" />
                             </div>
                         </div>
-                    </div>
-
-                    <div class="accordion" id="accordionExample" [ngStyle]="{display:checkedLivrable(livrable)}">
-                        <div class="accordion-item">
-                            <div class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
-                                Choisir votre point de livraison
-                            </div>
-                            <div id="collapseOne" class="accordion-collapse collapse show">
-                                <div class=" bg-white te py-1">
-                                    <select #selection class="form-select" (input)="zoneSelected(selection)">
-                                        <option value="" selected disabled>-- Veillez selectionnez une zone --</option>
-                                        <optgroup *ngFor="let zone of zones;"
-                                            label="{{'************ '+(zone.nom|uppercase)+ ' ************'}}"
-                                            class="form-label">
-
-                                            <option value="{{zone.id}}" *ngFor="let quartier of zone.quartiers">
-                                                {{quartier.nomQuartier}}</option>
-                                        </optgroup>
-                                    </select>
+                        <div class="accordion" id="accordionExample" [ngStyle]="{display:checkedLivrable(livrable)}">
+                            <div class="accordion-item">
+                                <div class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
+                                    Choisir votre point de livraison
+                                </div>
+                                <div id="collapseOne" class="accordion-collapse collapse show">
+                                    <div class=" bg-white  py-0">
+                                        <select #selection class="form-select rounded-0 " (input)="isZoneSelected(selection)">
+                                            <option value="" selected disabled>-- Veillez selectionnez une zone --
+                                            </option>
+                                            <optgroup *ngFor="let zone of zones;"
+                                                label="{{''+(zone.nom|uppercase)+ ' ----------- Prix Livraison: '+(zone.fraisLivraison)}}"
+                                                class="form-label">
+                                                <option value="{{zone.id}}" *ngFor="let quartier of zone.quartiers">
+                                                    {{quartier.nomQuartier}}</option>
+                                            </optgroup>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
-
 
                 <div class="d-flex w-100 mt-3 ">
                     <div class="bg-warning fw-bold fs-4 p-3 text-center mb-3 ">
                         TOTAL COMMANDE
                     </div>
                     <div class="border border-5 p-3 border-white text-center fs-3 w-50 mb-3 ">
-                        {{ (getPrixCommande() )| currency:"XOF" }}
+                        {{ (getPrixCommande()+getDeliveryPrice(livrable, selection) )| currency:"XOF" }}
                     </div>
+
+
                 </div>
             </div>
         </section>
     </div>
     <div class="m-3 ">
-        <button class="btn btn-commande bg-none border border-5 rounded-3 text-white fs-1 py-2 px-5 " [disabled]="nePeutCommander(livrable,emporter,selection)">
+        <button class="btn btn-commande bg-none border border-5 rounded-3 text-white fs-1 py-2 px-5 " (click)="commander()" [disabled]="nePeutCommander(emporter,selection)">
             Commander
         </button>
+
+
+
+
+    </div>
+
+
+    <div class="mode position-fixed bottom-0  end-0 ">
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+            Launch static backdrop modal
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        ...
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Understood</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
